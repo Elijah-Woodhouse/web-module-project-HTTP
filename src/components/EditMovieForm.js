@@ -6,6 +6,7 @@ import axios from 'axios';
 
 const EditMovieForm = (props) => {
 	const { push } = useHistory();
+	const { id } = useParams();
 
 	const { setMovies } = props;
 	const [movie, setMovie] = useState({
@@ -27,13 +28,25 @@ const EditMovieForm = (props) => {
         e.preventDefault();
         axios.put(`http://localhost:9000/api/movies/${id}`, movie)
             .then(res=>{
+				console.log(res.data);
+				////setMovie(res.data);
                 setMovies(res.data);
-                push(`/movies/${movie.id}`);
+                push(`/movies`);
 			})
 			.catch(err=>{
 				console.log(err);
 			})
 	}
+
+	useEffect(() => {
+		axios.get(`http://localhost:9000/api/movies/${id}`)
+			.then(res => {
+				console.log(res);
+				setMovie(res.data);
+			})
+	}, [])
+
+	console.log(movie);
 	
 	const { title, director, genre, metascore, description } = movie;
 
@@ -69,7 +82,7 @@ const EditMovieForm = (props) => {
 				</div>
 				<div className="modal-footer">			    
 					<input type="submit" className="btn btn-info" value="Save"/>
-					<Link to={`/movies/1`}><input type="button" className="btn btn-default" value="Cancel"/></Link>
+					<Link to={`/movies`}><input type="button" className="btn btn-default" value="Cancel"/></Link>
 				</div>
 			</form>
 		</div>
