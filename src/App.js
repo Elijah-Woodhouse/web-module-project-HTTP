@@ -50,16 +50,16 @@ const App = (props) => {
               <EditMovieForm setMovies={setMovies}/>
             </Route>
 
+            <Route path="/movies/add">
+              <AddMovieForm setMovies={setMovies}/>
+            </Route>
+
             <Route path="/movies/:id">
               <Movie deleteMovie={deleteMovie}/>
             </Route>            
 
             <Route path="/movies">
               <MovieList movies={movies}/>
-            </Route>
-
-            <Route path="/movies/edit/add">
-              <AddMovieForm setMovies={setMovies}/>
             </Route>
 
             <Route path="/">
